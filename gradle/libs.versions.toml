@@ -1,21 +1,35 @@
 [versions]
+accompanistPermissions = "0.33.2-alpha"
 hiltAndroid = "2.50"
 hiltAndroidCompiler = "2.50"
 hiltNavigationCompose = "1.1.0"
+kotlinxCoroutinesTest = "1.7.3"
 lifecycleRuntimeCompose = "2.6.2"
+mockk = "1.10.5"
 navigation = "2.5.1"
 glideVersion = "4.16.0"
 glideCompose = "1.0.0-beta01"
+truth = "1.1.5"
+turbine = "0.8.0"
+coreKtx = "1.5.0"
+navigationTesting = "2.7.6"
 
 [libraries]
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "navigationTesting" }
 
 # Glide
 glide-compiler = { module = "com.github.bumptech.glide:ksp", version.ref = "glideVersion" }
 glide-avif = { module = "com.github.bumptech.glide:avif-integration", version.ref = "glideVersion" }
 glide-compose = { module = "com.github.bumptech.glide:compose", version.ref = "glideCompose" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glideVersion" }
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+androidx-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtx" }

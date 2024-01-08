@@ -3,7 +3,6 @@ package com.humxa.galleryapp.core
 import android.content.Context
 import android.database.ContentObserver
 import android.net.Uri
-import android.provider.MediaStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow

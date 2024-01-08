@@ -10,28 +10,30 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.humxa.galleryapp.R
 import com.humxa.galleryapp.core.OnResumeEffect
+import com.humxa.galleryapp.feature.media.presentation.model.AlbumState
 import com.humxa.galleryapp.feature.media.presentation.model.ScreenState
 import com.humxa.galleryapp.feature.media.presentation.navigation.Screen
-import com.humxa.galleryapp.feature.media.presentation.viewmodel.AlbumViewModel
 import com.humxa.galleryapp.ui.theme.Dimens
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun AlbumScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    screenState: ScreenState,
+    albumState: AlbumState,
+    getAlbums: () -> Unit
 ) {
 
     val storagePermissionState = rememberMultiplePermissionsState(
@@ -43,10 +45,9 @@ fun AlbumScreen(
         } else listOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
     )
 
-    val viewModel: AlbumViewModel = hiltViewModel(viewModelStoreOwner = LocalViewModelStoreOwner.current!!)
-    val isLoading by remember(viewModel.screenState) {
+    val isLoading by remember(screenState) {
         derivedStateOf {
-            viewModel.screenState.value == ScreenState.LOADING
+            screenState == ScreenState.LOADING
         }
     }
 
@@ -54,11 +55,11 @@ fun AlbumScreen(
     val albumSize = remember {
         Dimens.Album.size.value
     }
-    val albumState = viewModel.albumsState.collectAsState()
 
-    val isEmpty by remember(isLoading, viewModel.albumsState) {
+
+    val isEmpty by remember(isLoading, albumState) {
         derivedStateOf {
-            isLoading.not() && albumState.value.albums.isEmpty()
+            isLoading.not() && albumState.albums.isEmpty()
         }
     }
 
@@ -66,13 +67,13 @@ fun AlbumScreen(
         if (storagePermissionState.allPermissionsGranted.not()) {
             storagePermissionState.launchMultiplePermissionRequest()
         } else {
-            if (isEmpty) viewModel.getAlbums()
+            if (albumState.albums.isEmpty()) getAlbums()
         }
     }
 
     Scaffold(
         topBar = {
-            TopBar(navController = navController)
+            TopBar(navController = navController, title = stringResource(id = R.string.title_gallery))
         }, content = { padding ->
             Box(modifier = Modifier.fillMaxSize()) {
                 LazyVerticalGrid(
@@ -83,7 +84,7 @@ fun AlbumScreen(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(
-                        items = albumState.value.albums,
+                        items = albumState.albums,
                         key = { item -> item.id }
                     ) { item ->
                         AlbumItem(
@@ -101,7 +102,7 @@ fun AlbumScreen(
                 }
                 if (isEmpty) {
                     EmptyStateScreen {
-                        viewModel.getAlbums()
+                        getAlbums()
                     }
                 }
             }

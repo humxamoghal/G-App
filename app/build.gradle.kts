@@ -62,11 +62,18 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation(libs.androidx.core.ktx)
     testImplementation("junit:junit:4.13.2")
+    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.12")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    implementation(libs.androidx.navigation.testing)
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
@@ -85,8 +92,27 @@ dependencies {
     implementation(libs.glide.compose)
     kapt(libs.glide.compiler)
 
+    // Testing
+    testImplementation(libs.kotlinx.coroutines.test)
+
     // Compose permissions
-    implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
+    implementation(libs.accompanist.permissions)
 
+    // MockK
+    testImplementation(libs.mockk)
 
+    // Truth
+    testImplementation(libs.truth)
+
+    // Turbine, Fot kotlin flow testing
+    testImplementation(libs.turbine)
+
+    testImplementation("androidx.test:core:1.5.0")
+
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+
+}
+
+kapt {
+    correctErrorTypes = true
 }

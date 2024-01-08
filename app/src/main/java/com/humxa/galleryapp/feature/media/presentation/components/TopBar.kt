@@ -21,11 +21,13 @@ import com.humxa.galleryapp.ui.theme.Black14Medium
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(navController: NavHostController) {
+fun TopBar(
+    navController: NavHostController,
+    title: String) {
     CenterAlignedTopAppBar(
         title = {
             Text(
-                text = stringResource(id = R.string.title_gallery),
+                text = title,
                 style = Black14Medium
             )
         },

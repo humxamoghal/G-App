@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.map
 class GalleryRepositoryImpl(private val context: Context) : GalleryRepository {
 
     companion object {
-        private val URIs = arrayOf(
+        val URIs = arrayOf(
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             MediaStore.Video.Media.EXTERNAL_CONTENT_URI
         )
