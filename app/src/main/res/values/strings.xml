@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GalleryApp</string>
+    <string name="title_gallery">Gallery</string>
+    <plurals name="item_count">
+        <item quantity="one">%s item</item>
+        <item quantity="other">%s items</item>
+    </plurals>
+</resources>
