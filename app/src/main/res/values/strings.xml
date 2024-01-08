@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">GalleryApp</string>
     <string name="title_gallery">Gallery</string>
+    <string name="label_could_not_find_anything">Oops! Could not find anything to show.</string>
+    <string name="btn_retry">Retry</string>
     <plurals name="item_count">
         <item quantity="one">%s item</item>
         <item quantity="other">%s items</item>

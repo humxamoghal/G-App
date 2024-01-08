@@ -4,7 +4,7 @@ glideVersion = "4.16.0"
 glideCompose = "1.0.0-beta01"
 
 [libraries]
-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation"}
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 
 # Glide
 glide-compiler = { module = "com.github.bumptech.glide:ksp", version.ref = "glideVersion" }

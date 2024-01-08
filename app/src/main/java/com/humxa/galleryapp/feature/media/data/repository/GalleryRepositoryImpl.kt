@@ -24,13 +24,13 @@ class GalleryRepositoryImpl(private val context: Context) : GalleryRepository {
         )
     }
 
-    override suspend fun getAlbums(): Flow<List<Album>> {
+    override fun getAlbums(): Flow<List<Album>> {
         return context.retrieveAlbums {
             it.getAlbums().toMutableList()
         }
     }
 
-    override suspend fun getMediaByAlbumId(albumId: Long): Flow<List<Media>> {
+    override fun getMediaByAlbumId(albumId: Long): Flow<List<Media>> {
         return context.retrieveMedia {
             val query = Query.MediaQuery().copy(
                 bundle = Bundle().apply {

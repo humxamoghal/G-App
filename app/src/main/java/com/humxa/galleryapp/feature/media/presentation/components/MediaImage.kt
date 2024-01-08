@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalGlideComposeApi::class)
-
 package com.humxa.galleryapp.feature.media.presentation.components
 
 import androidx.compose.animation.core.animateDpAsState
@@ -7,7 +5,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
@@ -21,14 +18,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.humxa.galleryapp.feature.media.domain.model.Album
-import java.io.File
+import com.humxa.galleryapp.feature.media.domain.model.Media
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalGlideComposeApi::class)
 @Composable
-fun AlbumImage(
-    album: Album,
-    onItemClick: (Album) -> Unit,
+fun MediaImage(
+    media: Media,
+    onItemClick: (Media) -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val cornerRadius by animateDpAsState(targetValue = 16.dp, label = "cornerRadius")
@@ -44,10 +40,10 @@ fun AlbumImage(
             .combinedClickable(
                 interactionSource = interactionSource,
                 indication = rememberRipple(),
-                onClick = { onItemClick(album) },
+                onClick = { onItemClick(media) },
             ),
-        model = File(album.pathToThumbnail),
-        contentDescription = album.label,
+        model = media.uri,
+        contentDescription = "media",
         contentScale = ContentScale.Crop
     )
 }

@@ -1,5 +1,6 @@
 package com.humxa.galleryapp.feature.media.presentation.view
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

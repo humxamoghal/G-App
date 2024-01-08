@@ -18,4 +18,6 @@ data class Media(
     val timestamp: Long,
     val mimeType: String,
     val duration: String? = null,
-) : Parcelable
+) : Parcelable {
+    val isVideo: Boolean get() = mimeType.startsWith("video/") && duration != null
+}

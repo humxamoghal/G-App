@@ -9,7 +9,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,13 +21,11 @@ import com.humxa.galleryapp.ui.theme.Dimens
 @Composable
 fun AlbumItem(
     album: Album,
-    isEnabled: Boolean = true,
     onItemClick: (Album) -> Unit,
 ) {
     val albumSize = remember { Dimens.Album.size.value }
     Column(
         modifier = Modifier
-            .alpha(if (isEnabled) 1f else 0.4f)
             .padding(horizontal = 8.dp),
     ) {
         Box(
@@ -38,7 +35,6 @@ fun AlbumItem(
         ) {
             AlbumImage(
                 album = album,
-                isEnabled = isEnabled,
                 onItemClick = onItemClick,
             )
         }

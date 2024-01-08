@@ -6,11 +6,7 @@ import androidx.navigation.compose.composable
 import com.humxa.galleryapp.feature.media.presentation.components.AlbumScreen
 
 fun NavGraphBuilder.albumNavigation(navController: NavHostController) {
-    composable("album") {
-        AlbumScreen(navController = navController) {
-            navController.navigate(
-                route = Screen.AlbumDetail.route
-            )
-        }
+    composable(Screen.Albums.route) {
+        AlbumScreen(navController = navController)
     }
 }

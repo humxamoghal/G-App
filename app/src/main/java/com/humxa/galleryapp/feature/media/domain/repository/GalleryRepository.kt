@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface GalleryRepository {
 
-    suspend fun getAlbums(): Flow<List<Album>>
+    fun getAlbums(): Flow<List<Album>>
 
-    suspend fun getMediaByAlbumId(albumId: Long): Flow<List<Media>>
+    fun getMediaByAlbumId(albumId: Long): Flow<List<Media>>
 }
