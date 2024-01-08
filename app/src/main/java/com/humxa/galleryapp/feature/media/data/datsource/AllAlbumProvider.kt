@@ -5,6 +5,7 @@ import com.humxa.galleryapp.feature.media.domain.model.Album
 object AllAlbumProvider {
     fun addAlbums(albums: ArrayList<Album>): ArrayList<Album> = albums.addAllAlbums()
     private fun ArrayList<Album>.addAllAlbums(): ArrayList<Album> {
+        if (this.isEmpty()) return this
         val time = System.currentTimeMillis()
         val allVideos = Album(
             id = DEFAULT_VIDEOS_ALBUM_ID,
@@ -28,5 +29,6 @@ object AllAlbumProvider {
     private const val ALL_VIDEOS = "All Videos"
     private const val ALL_PHOTOS = "All Photos"
 }
+
 const val DEFAULT_VIDEOS_ALBUM_ID = -200L
 const val DEFAULT_PHOTOS_ALBUM_ID = -201L

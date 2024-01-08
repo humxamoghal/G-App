@@ -73,18 +73,20 @@ dependencies {
     //  Navigation Compose
     implementation(libs.navigation.compose)
 
-    implementation("com.google.dagger:hilt-android:2.50")
-    kapt("com.google.dagger:hilt-android-compiler:2.50")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation(libs.lifecycle.runtime.compose)
 
     // Glide
     implementation(libs.glide)
     implementation(libs.glide.avif)
     implementation(libs.glide.compose)
     kapt(libs.glide.compiler)
+
+    // Compose permissions
+    implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
 
 
 }
