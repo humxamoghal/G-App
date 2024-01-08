@@ -11,6 +11,7 @@ import com.humxa.galleryapp.feature.media.data.model.getMedia
 import com.humxa.galleryapp.feature.media.domain.model.Album
 import com.humxa.galleryapp.feature.media.domain.model.Media
 import com.humxa.galleryapp.feature.media.domain.repository.GalleryRepository
+import com.humxa.galleryapp.feature.media.presentation.model.MediaType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.map
@@ -65,5 +66,15 @@ class GalleryRepositoryImpl(private val context: Context) : GalleryRepository {
                 emptyList()
             }
         }.conflate()
+
+    override fun getMediaByType(mediaType: MediaType): Flow<List<Media>> {
+        return context.retrieveMedia {
+            val query = when (mediaType) {
+                MediaType.PHOTOS -> Query.PhotoQuery()
+                MediaType.VIDEOS -> Query.VideoQuery()
+            }
+            it.getMedia(mediaQuery = query)
+        }
+    }
 
 }

@@ -9,10 +9,13 @@ import android.content.ContentResolver
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import com.humxa.galleryapp.feature.media.data.datsource.AllAlbumProvider
 import com.humxa.galleryapp.feature.media.data.datsource.Query
 import com.humxa.galleryapp.feature.media.domain.model.Album
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+
+typealias albumsProvider = AllAlbumProvider
 
 suspend fun ContentResolver.getAlbums(
     query: Query = Query.AlbumQuery()
@@ -44,15 +47,12 @@ suspend fun ContentResolver.getAlbums(
                     }
                     val thumbnailPath =
                         getString(getColumnIndexOrThrow(MediaStore.MediaColumns.DATA))
-                    val thumbnailRelativePath =
-                        getString(getColumnIndexOrThrow(MediaStore.MediaColumns.RELATIVE_PATH))
                     val thumbnailDate =
                         getLong(getColumnIndexOrThrow(MediaStore.MediaColumns.DATE_MODIFIED))
                     val album = Album(
                         id = id,
                         label = label ?: Build.MODEL,
                         pathToThumbnail = thumbnailPath,
-                        relativePath = thumbnailRelativePath,
                         timestamp = thumbnailDate,
                         count = 1
                     )
@@ -67,7 +67,6 @@ suspend fun ContentResolver.getAlbums(
                             albums[i] = album
                         }
                     }
-
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -75,6 +74,28 @@ suspend fun ContentResolver.getAlbums(
             }
             close()
         }
-        return@withContext albums.sortedByDescending { it.timestamp }
+        return@withContext albumsProvider.addAlbums(albums).sortedByDescending { it.timestamp }
     }
+}
+
+
+private fun ArrayList<Album>.addAllAlbums(): ArrayList<Album> {
+    val time = System.currentTimeMillis()
+    val allVideos = Album(
+        id = -200,
+        label = "All Videos",
+        pathToThumbnail = this.lastOrNull()?.pathToThumbnail ?: "",
+        timestamp = time,
+        count = 0,
+    )
+    val allPhotos = Album(
+        id = -201,
+        label = "All Photos",
+        pathToThumbnail = this.firstOrNull()?.pathToThumbnail ?: "",
+        timestamp = time + 1,
+        count = 0,
+    )
+    this.add(0, allVideos)
+    this.add(0, allPhotos)
+    return this
 }

@@ -31,6 +31,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.humxa.galleryapp.R
+import com.humxa.galleryapp.feature.media.data.datsource.DEFAULT_PHOTOS_ALBUM_ID
+import com.humxa.galleryapp.feature.media.data.datsource.DEFAULT_VIDEOS_ALBUM_ID
+import com.humxa.galleryapp.feature.media.presentation.model.MediaType
 import com.humxa.galleryapp.feature.media.presentation.model.ScreenState
 import com.humxa.galleryapp.feature.media.presentation.viewmodel.MediaViewModel
 import com.humxa.galleryapp.ui.theme.Black14Medium
@@ -55,7 +58,20 @@ fun AlbumDetailScreen(
         }
     }
     LaunchedEffect(true) {
-        viewModel.getMedia(albumId)
+
+        when (albumId) {
+            DEFAULT_PHOTOS_ALBUM_ID -> {
+                viewModel.getMedia(MediaType.PHOTOS)
+            }
+
+            DEFAULT_VIDEOS_ALBUM_ID -> {
+                viewModel.getMedia(MediaType.VIDEOS)
+            }
+
+            else -> {
+                viewModel.getMedia(albumId)
+            }
+        }
     }
     Scaffold(
         topBar = {

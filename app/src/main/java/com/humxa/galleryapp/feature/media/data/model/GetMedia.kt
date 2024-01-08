@@ -27,7 +27,7 @@ suspend fun ContentResolver.getMedia(
             }
             close()
         }
-        return@withContext media
+        return@withContext media.sortedByDescending { it.timestamp }
     }
 }
 

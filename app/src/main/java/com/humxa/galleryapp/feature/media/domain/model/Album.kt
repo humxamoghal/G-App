@@ -10,7 +10,6 @@ data class Album(
     val id: Long = 0,
     val label: String,
     val pathToThumbnail: String,
-    val relativePath: String,
     val timestamp: Long,
     var count: Long = 0,
     val selected: Boolean = false,

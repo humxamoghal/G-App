@@ -1,10 +1,11 @@
 package com.humxa.galleryapp.feature.media.domain.usecase
 
-import com.humxa.galleryapp.feature.media.domain.repository.GalleryRepository
+import com.humxa.galleryapp.feature.media.domain.factory.GalleryUseCasesFactory
 
 data class GalleryUseCases(
-    val repository: GalleryRepository
+    val factory: GalleryUseCasesFactory
 ) {
-    val getAlbumsUseCase = GetAlbumsUseCase(repository)
-    val getMediaUseCase = GetMediaUseCase(repository)
+    val getAlbumsUseCase = factory.createGetAlbumsUseCase()
+    val getMediaUseCase = factory.createGetMediaUseCase()
+    val getMediaByTypeUseCase = factory.createGetMediaByTypeUseCase()
 }

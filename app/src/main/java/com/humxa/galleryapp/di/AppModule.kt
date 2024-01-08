@@ -3,6 +3,8 @@ package com.humxa.galleryapp.di
 import android.content.ContentResolver
 import android.content.Context
 import com.humxa.galleryapp.feature.media.data.repository.GalleryRepositoryImpl
+import com.humxa.galleryapp.feature.media.domain.factory.GalleryUseCasesFactory
+import com.humxa.galleryapp.feature.media.domain.factory.GalleryUseCasesFactoryImpl
 import com.humxa.galleryapp.feature.media.domain.repository.GalleryRepository
 import com.humxa.galleryapp.feature.media.domain.usecase.GalleryUseCases
 import dagger.Module
@@ -24,9 +26,9 @@ object AppModule {
     @Provides
     @Singleton
     fun provideMediaUseCases(
-        repository: GalleryRepository,
+        factory: GalleryUseCasesFactory
     ): GalleryUseCases {
-        return GalleryUseCases(repository)
+        return GalleryUseCases(factory)
     }
 
     @Provides
@@ -37,4 +39,11 @@ object AppModule {
         return GalleryRepositoryImpl(context)
     }
 
+    @Provides
+    @Singleton
+    fun provideGalleryUseCasesFactory(
+        repository: GalleryRepository
+    ): GalleryUseCasesFactory {
+        return GalleryUseCasesFactoryImpl(repository)
+    }
 }

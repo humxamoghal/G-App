@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.humxa.galleryapp.feature.media.domain.usecase.GalleryUseCases
 import com.humxa.galleryapp.feature.media.presentation.model.MediaState
+import com.humxa.galleryapp.feature.media.presentation.model.MediaType
 import com.humxa.galleryapp.feature.media.presentation.model.ScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -35,4 +36,14 @@ class MediaViewModel @Inject constructor(
                 _mediaState.value = MediaState(media = result)
             }
     }
+
+    fun getMedia(type: MediaType) = viewModelScope.launch {
+        useCases.getMediaByTypeUseCase(type)
+            .flowOn(Dispatchers.IO).collectLatest { result ->
+                _screenState.value = ScreenState.DONE
+                _mediaState.value = MediaState(media = result)
+            }
+    }
+
+
 }
